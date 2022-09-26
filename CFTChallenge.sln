@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFTChallenge.Server", "Server\CFTChallenge.Server.csproj", "{959CE866-AC66-442C-A5DE-E8EC0A647D69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFTChallenge.Server", "Server\CFTChallenge.Server.csproj", "{959CE866-AC66-442C-A5DE-E8EC0A647D69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFTChallenge.Client", "Client\CFTChallenge.Client.csproj", "{9E4DDB23-4C07-467F-90BF-743928806B11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFTChallenge.Client", "Client\CFTChallenge.Client.csproj", "{9E4DDB23-4C07-467F-90BF-743928806B11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFTChallenge.Shared", "Shared\CFTChallenge.Shared.csproj", "{E2EAB22E-6BDF-4B65-A79B-52695FBEC508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CFTChallenge.Shared", "Shared\CFTChallenge.Shared.csproj", "{E2EAB22E-6BDF-4B65-A79B-52695FBEC508}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

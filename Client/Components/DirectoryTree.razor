@@ -1,0 +1,20 @@
+﻿@using CFTChallenge.Shared
+
+@if(Directory is not null)
+{
+    @foreach (var directoryName in (new SortedDictionary<string, string>(Directory.DirectoriesNames)))
+    {
+        <li @onclick="@(async e => await (DirectoryChanged?.Invoke(directoryName.Value) ?? Task.CompletedTask))">@directoryName.Key</li>
+    }
+    @foreach (var file in (new SortedDictionary<string, File>(Directory.Files)))
+    {
+        <li>@file.Value.Name</li>
+    }
+}
+
+@code {
+    [Parameter]
+    public Directory? Directory { get; set; }
+    [Parameter]
+    public Func<string, Task>? DirectoryChanged { get; set; }
+}
