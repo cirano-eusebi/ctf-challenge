@@ -4,11 +4,15 @@
 {
     @foreach (var directoryName in (new SortedDictionary<string, string>(Directory.DirectoriesNames)))
     {
-        <li @onclick="@(async e => await (DirectoryChanged?.Invoke(directoryName.Value) ?? Task.CompletedTask))">@directoryName.Key</li>
+        <li @onclick="@(async e => await (DirectoryChanged?.Invoke(directoryName.Value) ?? Task.CompletedTask))">
+            <span class="oi oi-folder" aria-hidden="true"></span> @directoryName.Key
+        </li>
     }
     @foreach (var file in (new SortedDictionary<string, File>(Directory.Files)))
     {
-        <li>@file.Value.Name</li>
+        <li>
+            <span class="oi oi-file" aria-hidden="true"></span> @file.Value.Name
+        </li>
     }
 }
 

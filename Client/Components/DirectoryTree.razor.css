@@ -1,0 +1,11 @@
+﻿ol li {
+    list-style-type: none;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+li:last-child {
+    margin-bottom: 0px;
+}
