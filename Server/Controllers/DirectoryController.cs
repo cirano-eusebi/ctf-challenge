@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// See the LICENSE file in the project root for more information.
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace CFTChallenge.Server.Controllers;
 
-[ApiController]
 [Route("[controller]")]
+[ApiController]
 public class DirectoryController : ControllerBase
 {
     private readonly ILogger<DirectoryController> _logger;

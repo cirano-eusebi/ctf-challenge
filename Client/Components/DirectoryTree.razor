@@ -1,17 +1,20 @@
 ﻿@using CFTChallenge.Shared
+@inject HttpClient Http
+@inject IJSRuntime JS
+
 
 @if(Directory is not null)
 {
-    @foreach (var directoryName in (new SortedDictionary<string, string>(Directory.DirectoriesNames)))
+    @foreach (var directoryName in (new SortedDictionary<string, string>(Directory.Directories)))
     {
-        <li @onclick="@(async e => await (DirectoryChanged?.Invoke(directoryName.Value) ?? Task.CompletedTask))">
+        <li @onclick="@(async e => await OnDirectoryClicked(directoryName.Value))">
             <span class="oi oi-folder" aria-hidden="true"></span> @directoryName.Key
         </li>
     }
     @foreach (var file in (new SortedDictionary<string, File>(Directory.Files)))
     {
-        <li>
-            <span class="oi oi-file" aria-hidden="true"></span> @file.Value.Name
+        <li @onclick="@(async e => await OnFileClicked(file.Value.Path, file.Value.Name))">
+            <span class="oi oi-file" aria-hidden="true"></span> @file.Key
         </li>
     }
 }
@@ -21,4 +24,22 @@
     public Directory? Directory { get; set; }
     [Parameter]
     public Func<string, Task>? DirectoryChanged { get; set; }
+
+    private async Task OnDirectoryClicked(string directoryPath)
+    {
+        await (DirectoryChanged?.Invoke(directoryPath) ?? Task.CompletedTask);
+    }
+
+    // https://learn.microsoft.com/en-us/aspnet/core/blazor/file-downloads?view=aspnetcore-6.0
+    // https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#load-a-script-from-an-external-javascript-file-js-collocated-with-a-component
+    private async Task OnFileClicked(string filePath, string fileName)
+    {
+        var stream = await Http.GetStreamAsync($"File?path={filePath}");
+        using var streamRef = new DotNetStreamReference(stream);
+
+        var module = await JS.InvokeAsync<IJSObjectReference>(
+            "import", "./Components/DirectoryTree.razor.js"
+        );
+        await module.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
+    }
 }
