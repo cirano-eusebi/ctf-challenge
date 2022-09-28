@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-namespace CFTChallenge.Server.Controllers;
+namespace CTFChallenge.Server.Controllers;
 
 [Route("[controller]")]
 [ApiController]

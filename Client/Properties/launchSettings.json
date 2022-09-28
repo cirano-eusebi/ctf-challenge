@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "CFTChallenge": {
+    "CTFChallenge": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
