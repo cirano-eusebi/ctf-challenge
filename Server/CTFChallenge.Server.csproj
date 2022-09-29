@@ -5,10 +5,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
+    <UserSecretsId>76d1fdfa-c7c2-40bb-a146-3b6d947ce9ba</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +22,6 @@
     <Reference Include="CTFChallenge.Security">
       <HintPath>..\Security\bin\Debug\netstandard2.1\x64\CTFChallenge.Security.dll</HintPath>
       <Private>True</Private>
-      <TreatAsUsed>True</TreatAsUsed>
     </Reference>
   </ItemGroup>
 

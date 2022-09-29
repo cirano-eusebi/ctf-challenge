@@ -35,6 +35,9 @@ indent_size = 2
 end_of_line = lf
 indent_size = 2
 
+[Makefile]
+indent_style = tab
+
 # Dotnet code style settings:
 [*.{cs,vb}]
 

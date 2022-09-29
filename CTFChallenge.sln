@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CTFChallenge.Server", "Server\CTFChallenge.Server.csproj", "{959CE866-AC66-442C-A5DE-E8EC0A647D69}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AA28FB18-055E-423B-8F37-9C4AC1AAD6BC} = {AA28FB18-055E-423B-8F37-9C4AC1AAD6BC}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CTFChallenge.Client", "Client\CTFChallenge.Client.csproj", "{9E4DDB23-4C07-467F-90BF-743928806B11}"
 EndProject
