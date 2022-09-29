@@ -1,6 +1,7 @@
 ﻿@page "/folders"
 @using CTFChallenge.Shared
 @using CTFChallenge.Client.Components
+@using System.Net.Http.Headers
 @inject HttpClient Http
 
 <PageTitle>Folders</PageTitle>
@@ -21,6 +22,13 @@ else
             <DirectoryTree Directory="@Directory" DirectoryChanged="OnDirectoryChanged" />
         </ol>
     </CascadingValue>
+    <p>
+        <label>
+            Upload a file to this directory
+            <InputFile OnChange="@LoadFiles" />
+            <button onclick="@Upload"> Upload!</button>
+        </label>
+    </p>
 }
 
 @code {
@@ -28,6 +36,7 @@ else
     public string CurrentPath { get; set; } = ".";
     private Directory? Directory;
 
+    private IBrowserFile? FileToUpload { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -38,5 +47,27 @@ else
     {
         Directory = await Http.GetFromJsonAsync<Directory>($"Directory?path={path}");
         StateHasChanged();
+    }
+
+    private void LoadFiles(InputFileChangeEventArgs e)
+    {
+        FileToUpload = e.File;
+    }
+
+    private async Task Upload(MouseEventArgs e)
+    {
+        if (FileToUpload is null) return;
+
+        using var multipart = new MultipartFormDataContent();
+
+        var filePart = new StreamContent(FileToUpload.OpenReadStream(long.MaxValue));
+        filePart.Headers.ContentType = new MediaTypeHeaderValue(FileToUpload.ContentType);
+
+        multipart.Add(filePart, "file", FileToUpload.Name);
+
+        await Http.PostAsync($"File?Path={CurrentPath}", multipart);
+
+        // Rerender the directory after the successful upload.
+        await OnDirectoryChanged(CurrentPath);
     }
 }

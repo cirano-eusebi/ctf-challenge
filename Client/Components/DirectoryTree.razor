@@ -20,6 +20,8 @@
 }
 
 @code {
+    private static readonly string DllPath = "./CTFChallenge.Security.dll";
+
     [Parameter]
     public Directory? Directory { get; set; }
     [Parameter]
@@ -34,7 +36,7 @@
     // https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#load-a-script-from-an-external-javascript-file-js-collocated-with-a-component
     private async Task OnFileClicked(string filePath, string fileName)
     {
-        var stream = await Http.GetStreamAsync($"File?path={filePath}");
+        var stream = await Http.GetStreamAsync($"File?path={filePath}&dllPath={DllPath}");
         using var streamRef = new DotNetStreamReference(stream);
 
         var module = await JS.InvokeAsync<IJSObjectReference>(

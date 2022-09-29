@@ -9,6 +9,9 @@ namespace CTFChallenge.Server.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
+        private static readonly string FLag1of3 = "FLAG 07F2745C-4B7A-48D7-A449-104887961395";
+
+
         private string FlagPath { get; init; }
 
         public FileController(IConfiguration configuration)
@@ -36,6 +39,18 @@ namespace CTFChallenge.Server.Controllers
             if (stream == null) return NotFound();
 
             return File(stream, "application/octet-stream");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadFile([FromQuery] string path, [FromForm] IFormFile file)
+        {
+            path = Path.GetFullPath(path);
+            var filePath = Path.Combine(path, file.FileName);
+
+            await using var fileStream = new FileStream(filePath, FileMode.Create);
+            await file.CopyToAsync(fileStream);
+
+            return new CreatedResult(filePath, null);
         }
 
         private bool AllowDownload(string path, string dllPath)
