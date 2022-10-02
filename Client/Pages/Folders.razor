@@ -65,9 +65,9 @@ else
 
         multipart.Add(filePart, "file", FileToUpload.Name);
 
-        await Http.PostAsync($"File?Path={CurrentPath}", multipart);
+        await Http.PostAsync($"File?Path={Directory?.Path ?? CurrentPath}", multipart);
 
         // Rerender the directory after the successful upload.
-        await OnDirectoryChanged(CurrentPath);
+        await OnDirectoryChanged(Directory?.Path ?? CurrentPath);
     }
 }
