@@ -26,7 +26,7 @@ else
         <label>
             Upload a file to this directory
             <InputFile OnChange="@LoadFiles" />
-            <button onclick="@Upload"> Upload!</button>
+            <button @onclick="Upload"> Upload!</button>
         </label>
     </p>
 }
@@ -61,7 +61,7 @@ else
         using var multipart = new MultipartFormDataContent();
 
         var filePart = new StreamContent(FileToUpload.OpenReadStream(long.MaxValue));
-        filePart.Headers.ContentType = new MediaTypeHeaderValue(FileToUpload.ContentType);
+        filePart.Headers.ContentType = new MediaTypeHeaderValue(string.IsNullOrEmpty(FileToUpload.ContentType) ? "text/plain" : FileToUpload.ContentType);
 
         multipart.Add(filePart, "file", FileToUpload.Name);
 

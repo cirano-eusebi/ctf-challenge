@@ -1,9 +1,48 @@
 ﻿@page "/"
+@inject HttpClient Http
+@inject NavigationManager uriHelper;
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>CTF Challenge</h1>
+<p>Welcome to a vulnerable App.</p>
 
-Welcome to your new app.
+<h2>FAQ</h2>
+<h3>Oh no, I broke my instance</h3>
+<p>If you feel like you can't move forward or everything is breaking click this button</p>
+@if(!confirmationStep)
+{
+    <button @onclick="OnRestartClicked">Restart</button>
+}
+else
+{
+    <p>All your progress will be lost!</p>
+    <button @onclick="OnConfirmationClicked">Yes, Restart!</button>
+}
+@if(confirmed)
+{
+    <p>Application is restarting, please give it 5 seconds...</p>
+}
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code {
+    private bool confirmationStep = false;
+    private bool confirmed = false;
+
+    private void OnRestartClicked()
+    {
+        confirmationStep = true;
+    }
+
+    private async Task OnConfirmationClicked()
+    {
+        var response = await Http.PostAsync("Restart", null);
+        // Fire and forget a reload of the page
+        _ = Task.Run(async () =>
+        {
+            await Task.Delay(5000);
+            uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+        });
+        confirmed = true;
+    }
+}

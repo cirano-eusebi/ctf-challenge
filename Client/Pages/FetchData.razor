@@ -41,12 +41,9 @@ else
 
 @code {
     private WeatherForecast[]? forecasts;
-    private Directory? directory;
-    private string currentPath = ".";
 
     protected override async Task OnInitializedAsync()
     {
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
-        directory = await Http.GetFromJsonAsync<Directory>($"Directory?path={currentPath}");
     }
 }
