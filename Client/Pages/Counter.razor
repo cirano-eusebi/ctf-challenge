@@ -4,7 +4,7 @@
 
 <h1>Counter</h1>
 
-@if (currentCount > 0) {
+@if (currentCount > 0 && currentCount < 10) {
     <p> When count becomes 1.000.000 you can get an extra flag </p>
 }
 <p role="status">Current count: @currentCountString</p>
@@ -13,8 +13,8 @@
 
 @code {
     private int currentCount = 0;
-    private string currentCountString = '0';
-    private string flagfour = 'FLAG4OF3 D01799A7-FEAA-580F-B304-7364F01398D6'
+    private string currentCountString = "0";
+    private string flagfour = "FLAG4OF3 D01799A7-FEAA-580F-B304-7364F01398D6";
 
     private void IncrementCount()
     {
