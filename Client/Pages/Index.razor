@@ -21,7 +21,7 @@ else
 }
 @if(confirmed)
 {
-    <p>Application is restarting, please give it 5 seconds...</p>
+    <p>Application is restarting, please give it 15 seconds...</p>
 }
 
 
@@ -40,7 +40,7 @@ else
         // Fire and forget a reload of the page
         _ = Task.Run(async () =>
         {
-            await Task.Delay(5000);
+            await Task.Delay(15000);
             uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
         });
         confirmed = true;
