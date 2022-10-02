@@ -1,5 +1,5 @@
 CLI:=docker
-TAG:=ctf
+TAG:=ceusebi/ctf-challenge
 
 build:
 	${CLI} build -t ${TAG} -f Server/Dockerfile .
