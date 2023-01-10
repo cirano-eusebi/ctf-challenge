@@ -9,7 +9,7 @@ namespace CTFChallenge.Server.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
-        private static readonly string FLag1of3 = "FLAG1OF3 07F2745C-4B7A-48D7-A449-104887961395";
+        private static readonly string FLag3of3 = "FLAG3OF3 07F2745C-4B7A-48D7-A449-104887961395";
 
 
         private string FlagPath { get; init; }
