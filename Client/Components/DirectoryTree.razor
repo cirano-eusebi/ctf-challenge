@@ -7,16 +7,33 @@
 {
     @foreach (var directoryName in (new SortedDictionary<string, string>(Directory.Directories)))
     {
-        <li @onclick="@(async e => await OnDirectoryClicked(directoryName.Value))">
+        var buzzClass = directoryName.Key switch
+        {
+            ".\\.." => "buzz-out-on-hover",
+            "./.." => "buzz-out-on-hover",
+            _ => ""
+        };
+        <li class="@buzzClass" @onclick="@(async e => await OnDirectoryClicked(directoryName.Value))">
             <span class="oi oi-folder" aria-hidden="true"></span> @directoryName.Key
         </li>
     }
     @foreach (var file in (new SortedDictionary<string, File>(Directory.Files)))
     {
-        <li @onclick="@(async e => await OnFileClicked(file.Value.Path, file.Value.Name))">
+        var buzzClass = file.Key switch
+        {
+            "CTFChallenge.Security.dll" => "buzz-out-on-hover",
+            "CTFChallenge.Server.dll" => "buzz-out-on-hover",
+            "CTFChallenge.Server.exe" => "buzz-out-on-hover",
+            "flag.txt" => "buzz-out-on-hover",
+            _ => ""
+        };
+        <li class="@buzzClass" @onclick="@(async e => await OnFileClicked(file.Value.Path, file.Value.Name))">
             <span class="oi oi-file" aria-hidden="true"></span> @file.Key
         </li>
     }
+    <li>
+        <span oi oi-message>@Message</span>
+    </li>
 }
 
 @code {
@@ -27,15 +44,19 @@
     [Parameter]
     public Func<string, Task>? DirectoryChanged { get; set; }
 
+    private string Message { get; set; } = "";
+
     private async Task OnDirectoryClicked(string directoryPath)
     {
         await (DirectoryChanged?.Invoke(directoryPath) ?? Task.CompletedTask);
+        Message = "";
     }
 
     // https://learn.microsoft.com/en-us/aspnet/core/blazor/file-downloads?view=aspnetcore-6.0
     // https://learn.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-6.0#load-a-script-from-an-external-javascript-file-js-collocated-with-a-component
     private async Task OnFileClicked(string filePath, string fileName)
     {
+        Message = $"Executing request: File?path={filePath}&dllPath={DllPath}";
         var stream = await Http.GetStreamAsync($"File?path={filePath}&dllPath={DllPath}");
         using var streamRef = new DotNetStreamReference(stream);
 
